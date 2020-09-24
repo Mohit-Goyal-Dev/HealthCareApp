@@ -143,7 +143,7 @@
           <div
             id="error-no-dob"
             class="alert alert-danger error-msg"
-            *ngIf="dob.touched && dob.dirty && dob.invalid"
+            *ngIf="dob.dirty && dob.invalid"
           >
             {{ noDob }}
           </div>
@@ -173,8 +173,8 @@
             *ngIf="
               mobile.dirty &&
               mobile.invalid &&
-              mobile.errors.pattern &&
-              !mobile.errors.maxlength
+              !mobile.errors.maxlength &&
+              mobile.errors.pattern
             "
           >
             {{ numberMobile }}

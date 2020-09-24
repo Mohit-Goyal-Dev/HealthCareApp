@@ -76,7 +76,7 @@ export class ApiService {
     // handle error
     let url = this.API_URL + "/users/" + userDetails.userId;
     return this.http
-      .put(url, userDetails)
+      .put<Users>(url, userDetails)
       .map((user: Users) => {
         // console.log("indside updateprofile api map");
         // console.log(user);

@@ -30,6 +30,8 @@ export class DataService {
           console.log(response);
           let loggedInUserId = response.userId;
           localStorage.setItem("userId", loggedInUserId.toString());
+          this.isLoggedIn = true;
+          this.getAuthStatus();
           return true;
         } else return false;
         // } else return of(false);
@@ -45,7 +47,7 @@ export class DataService {
   getAuthStatus(): Observable<boolean> {
     // return this.isLogIn.asObservable();
     let userId = localStorage.getItem("userId");
-    if (userId) {
+    if (userId && this.isLoggedIn) {
       this.isLogIn.next(true);
       return this.isLogIn.asObservable();
     }
@@ -75,18 +77,23 @@ export class DataService {
   updateProfile(userDetails): Observable<boolean> {
     // should return the updated status according to the response from api service
     // console.log(userDetails);
-    return this.api.updateDetails(userDetails).map(
-      (userDetail) => {
-        // console.log("indside updateprofile map");
-        if (userDetail && userDetail.userId) {
-          // console.log("indside updateprofile if");
-          return true;
-        } else return false;
-      },
-      (error) => {
-        return false;
-      }
-    );
+    return this.api
+      .updateDetails(userDetails)
+      .map(
+        (userDetail) => {
+          // console.log("indside updateprofile map");
+          if (userDetail && userDetail.userId) {
+            // console.log("indside updateprofile if");
+            return true;
+          }
+        },
+        (error) => {
+          return Observable.throw(undefined);
+        }
+      )
+      .catch((error) => {
+        return Observable.throw(undefined);
+      });
   }
 
   registerPatient(patientDetails): Observable<any> {
@@ -210,10 +217,21 @@ export class DataService {
   getUserId(): number {
     // retrieve 'userId' from localstorage
     let userId = +localStorage.getItem("userId");
-    if (userId && this.isLogIn) return userId;
-    else {
+    if (userId && !this.isLogIn.getValue()) {
       userId = -1;
-      return userId;
     }
+    // else if (
+    //   userId === NaN ||
+    //   localStorage.getItem("userId") === (null || undefined)
+    // ) {
+    //   userId = -1;
+    // }
+    else if (
+      localStorage.getItem("userId") === null ||
+      !this.isLogIn.getValue()
+    ) {
+      userId = -1;
+    }
+    return userId;
   }
 }

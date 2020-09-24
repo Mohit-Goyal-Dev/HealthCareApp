@@ -38,9 +38,12 @@ export class ViewPatientComponent implements OnInit {
 
     // add necessary validators
     this.appointmentForm = fb.group({
-      selectDisease: [null, [Validators.required]],
-      tentativeDate: [null, [Validators.required]],
-      priority: [null, Validators.required],
+      // selectDisease: [null, Validators.required],
+      // tentativeDate: [null, Validators.required],
+      // priority: [null, Validators.required],
+      selectDisease: [null],
+      tentativeDate: [null],
+      priority: [null],
     });
   }
   get selectDisease() {

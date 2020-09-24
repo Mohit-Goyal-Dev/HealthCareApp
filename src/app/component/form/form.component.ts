@@ -70,7 +70,7 @@ export class FormComponent implements OnInit {
         "",
         [
           Validators.required,
-          Validators.pattern("[0-9 ]{10}"),
+          Validators.pattern("^[0-9 ]{10,}$"),
           Validators.maxLength(10),
         ],
       ],

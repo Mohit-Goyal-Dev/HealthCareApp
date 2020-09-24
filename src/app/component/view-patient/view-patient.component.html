@@ -166,7 +166,7 @@
           type="submit"
           id="submit-btn"
           class="btn btn-primary submit-btn"
-          [disabled]="!appointmentForm.valid"
+          [disabled]="appointmentForm.invalid"
           (click)="scheduleAppointment()"
         >
           Schedule
