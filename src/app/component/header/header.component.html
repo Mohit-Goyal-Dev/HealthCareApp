@@ -3,18 +3,18 @@
     <div class="navbar-header">
       <a class="navbar-brand">Health Care Service</a>
       <label class="navbar-brand">
-        <span class="glyphicon glyphicon-user"></span> Welcome 
-        <span id="username" class="user">{{userDetails.username}}</span>
+        <span class="glyphicon glyphicon-user"></span> Welcome
+        <span id="username" class="user">{{ userDetails.username }}</span>
       </label>
     </div>
     <div class="nav-left">
-	    <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav">
         <li>
           <a routerLink="/profile" routerLinkActive="current-link">
             <span class="glyphicon glyphicon-cog"></span> Profile
           </a>
         </li>
-	      <li>
+        <li>
           <a routerLink="/form" routerLinkActive="current-link">
             <i class="fa fa-wpforms" aria-hidden="true"></i>
             Register patient
@@ -26,16 +26,24 @@
           </a>
         </li>
         <li>
-          <a routerLink="/requested_appointments" routerLinkActive="current-link">
+          <a
+            routerLink="/requested_appointments"
+            routerLinkActive="current-link"
+          >
             <span class="glyphicon glyphicon-list-alt"></span> Requested App
           </a>
         </li>
-	      <li>
+        <li>
           <a routerLink="/login">
-            <span class="glyphicon glyphicon-log-out" routerLinkActive="current-link"></span> Logout
+            <span
+              class="glyphicon glyphicon-log-out"
+              routerLinkActive="current-link"
+              (click)="dataService.doLogOut()"
+            ></span>
+            Logout
           </a>
         </li>
-	    </ul>
+      </ul>
     </div>
   </div>
 </nav>

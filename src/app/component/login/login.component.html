@@ -2,61 +2,114 @@
 <div class="login-view-wrapper custom-container">
   <div class="login-view">
     <div class="logo-wrapper">
-      <img src="./../assets/login.png" width="100" height="100">
-      <h2 >LOGIN</h2>
+      <img src="./../assets/login.png" width="100" height="100" />
+      <h2>LOGIN</h2>
     </div>
-    <div class="login-form-wrapper" >
-      <form class="ro-form">
+    <div class="login-form-wrapper">
+      <form class="ro-form" [formGroup]="loginForm">
+        <div
+          class="form-error-messages"
+          id="error-minlength-username"
+          *ngIf="isLoginFailed"
+        >
+          {{ wrongCredentials }}
+        </div>
         <div class="form-group">
           <label class="labelHead" for="username">
             <b>Username</b>
           </label>
-          <input type="text" id="username" placeholder="username">
+          <input
+            type="text"
+            id="username"
+            placeholder="username"
+            formControlName="userName"
+          />
 
-          <div class="form-error-messages"
-            id="error-no-username">
-            {{emptyUserName}}
+          <div
+            class="form-error-messages"
+            id="error-no-username"
+            *ngIf="
+              userName.dirty && userName.invalid && userName.errors.required
+            "
+          >
+            {{ emptyUserName }}
           </div>
-          <div class="form-error-messages"
-            id="error-minlength-username">
-            {{minlengthUserName}}
+          <div
+            class="form-error-messages"
+            id="error-minlength-username"
+            *ngIf="userName.invalid && userName.errors.minlength"
+          >
+            {{ minlengthUserName }}
           </div>
-          <div class="form-error-messages"
-            id="error-maxlength-username">
-            {{maxlengthUserName}}
+          <div
+            class="form-error-messages"
+            id="error-maxlength-username"
+            *ngIf="userName.invalid && userName.errors.maxlength"
+          >
+            {{ maxlengthUserName }}
           </div>
-          <div class="form-error-messages"
-            id="error-pattern-username">
-            {{userNamePattern}}
+          <div
+            class="form-error-messages"
+            id="error-pattern-username"
+            *ngIf="userName.invalid && userName.errors.pattern"
+          >
+            {{ userNamePattern }}
           </div>
         </div>
         <div class="form-group">
           <label class="labelHead" for="password">
             <b>Password</b>
           </label>
-          <input type="password" id="password" placeholder="password">
-          <div class="form-error-messages"
-            id="error-no-password">
-            {{emptyPassword}}
+          <input
+            type="password"
+            id="password"
+            placeholder="password"
+            formControlName="password"
+          />
+          <div
+            class="form-error-messages"
+            id="error-no-password"
+            *ngIf="
+              password.dirty && password.invalid && password.errors.required
+            "
+          >
+            {{ emptyPassword }}
           </div>
-          <div class="form-error-messages"
-            id="error-minlength-password">
-            {{minlengthPassword}}
+          <div
+            class="form-error-messages"
+            id="error-minlength-password"
+            *ngIf="password.invalid && password.errors.minlength"
+          >
+            {{ minlengthPassword }}
           </div>
-          <div class="form-error-messages"
-            id="error-maxlength-password">
-            {{maxlengthPassword}}
+          <div
+            class="form-error-messages"
+            id="error-maxlength-password"
+            *ngIf="password.invalid && password.errors.maxlength"
+          >
+            {{ maxlengthPassword }}
           </div>
-          <div class="form-error-messages"
-            id="error-pattern-password">
-            {{passwordPattern}}
+          <div
+            class="form-error-messages"
+            id="error-pattern-password"
+            *ngIf="password.invalid && password.errors.pattern"
+          >
+            {{ passwordPattern }}
           </div>
         </div>
         <div class="col-sm-12 clmn12">
           <!-- disable button if form not valid -->
           <!-- call doLogin method when clicking on this button-->
-          <button id="loginBtn" class="login-btn" type="submit" >Login</button>
-      </div>
+          <button
+            id="loginBtn"
+            class="login-btn"
+            type="submit"
+            [disabled]="!loginForm.valid"
+            (click)="doLogin()"
+          >
+            Login
+          </button>
+        </div>
       </form>
     </div>
   </div>
